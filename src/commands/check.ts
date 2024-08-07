@@ -12,18 +12,14 @@ export function builder(yargs: Argv<GreetingArgv>): Argv {
 }
 
 export async function handler() {
-  const gitlabToken =
-    process.env.GITLAB_API_TOKEN ||
-    logger.prompt('I do not see GITLAB_API_TOKEN environment variable. Please enter it:', { type: 'text' })
-  const projectId =
-    process.env.CI_PROJECT_ID ||
-    logger.prompt('I do not see CI_PROJECT_ID environment variable. Please enter it:', { type: 'text' })
-  const mrId =
-    process.env.CI_MERGE_REQUEST_IID ||
-    logger.prompt('I do not see CI_MERGE_REQUEST_IID environment variable. Please enter it:', { type: 'text' })
-  const gitlabHost =
-    process.env.CI_SERVER_URL ||
-    logger.prompt('I do not see CI_SERVER_URL environment variable. Please enter it:', { type: 'text' })
+  const gitlabToken = await (process.env.GITLAB_API_TOKEN ||
+    logger.prompt('I do not see GITLAB_API_TOKEN environment variable. Please enter it:', { type: 'text' }))
+  const projectId = await (process.env.CI_PROJECT_ID ||
+    logger.prompt('I do not see CI_PROJECT_ID environment variable. Please enter it:', { type: 'text' }))
+  const mrId = await (process.env.CI_MERGE_REQUEST_IID ||
+    logger.prompt('I do not see CI_MERGE_REQUEST_IID environment variable. Please enter it:', { type: 'text' }))
+  const gitlabHost = await (process.env.CI_SERVER_URL ||
+    logger.prompt('I do not see CI_SERVER_URL environment variable. Please enter it:', { type: 'text' }))
 
   const gitlabApiUrl = `${gitlabHost}/api/v4/projects/${projectId}/merge_requests/${mrId}`
 
