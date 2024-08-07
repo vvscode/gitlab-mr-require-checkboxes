@@ -8,8 +8,8 @@ config()
 const run = yargs(process.argv.slice(2))
 run.usage(
   bgBlue(
-    `Welcome to the CLI application powered by ${bold(red('cli-typescript-starter'))}!
-    See more on https://github.com/kucherenko/cli-typescript-starter`,
+    `Welcome to the CLI application powered by ${bold(red('gitlab-mr-require-checkboxes'))}!
+    See more on https://github.com/vvscode/gitlab-mr-require-checkboxes`,
   ),
 )
 for (const command of commands) {
