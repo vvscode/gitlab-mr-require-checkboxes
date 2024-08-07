@@ -1,5 +1,8 @@
 # gitlab-mr-require-checkboxes
 
+[![npm version](https://badge.fury.io/js/gitlab-mr-require-checkboxes.svg)](https://www.npmjs.com/package/gitlab-mr-require-checkboxes)
+[![Deploy](https://github.com/vvscode/gitlab-mr-require-checkboxes/workflows/Release/badge.svg)](https://github.com/vvscode/gitlab-mr-require-checkboxes/actions)
+
 ## [CLI] Require checkboxes in GitLab MR description to be checked
 
 A simple CLI tool to check that all checkboxes in a merge request description are checked is designed as follows:
@@ -18,3 +21,17 @@ The cli uses environment variables to pass settings:
 
 - `GITLAB_API_TOKEN` - this one you need to create, it's used to access gitlab API
 - `CI_PROJECT_ID`, `CI_MERGE_REQUEST_IID`, `CI_SERVER_URL` are passed to pipeline by Gitlab
+
+## How to use in ci config:
+
+```yml
+# Define GITLAB_API_TOKEN on the job/project level
+check-mr-description:
+  image: 'some-image-with-npx'
+  stage: install
+  env
+  only:
+    - merge_requests
+  script:
+    - npx -y gitlab-mr-require-checkboxes@latest check
+```
