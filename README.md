@@ -17,7 +17,7 @@ Related links:
 - [How Can We Check All Checkbox Are Checked in Gitlab Merge Request Template](https://stackoverflow.com/questions/73302452/how-can-we-check-all-checkbox-are-checked-in-gitlab-merge-request-template)
 - [Can I require a "sign-off" checkbox to be checked before a merge can be done?](https://stackoverflow.com/questions/68802300/can-i-require-a-sign-off-checkbox-to-be-checked-before-a-merge-can-be-done)
 
-The cli uses environment variables to pass settings: 
+The cli uses environment variables to pass settings:
 
 - `GITLAB_API_TOKEN` - this one you need to create, it's used to access gitlab API
 - `CI_PROJECT_ID`, `CI_MERGE_REQUEST_IID`, `CI_SERVER_URL` are passed to pipeline by Gitlab
@@ -35,3 +35,18 @@ check-mr-description:
   script:
     - npx -y gitlab-mr-require-checkboxes@latest check
 ```
+
+### Extra configuration
+
+You can mark part of checkboxes as required (by default it's applicable to the whole description) with wrapping them into wrappers:
+
+```md
+<!-- required-checkboxes-start -->
+- [x] required 1
+- [ ] required 2
+<!-- required-checkboxes-end -->
+- [x] optional 1
+- [ ] optional 2
+```
+
+Wrapper can be used multiple times.

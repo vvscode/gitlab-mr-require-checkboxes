@@ -43,7 +43,7 @@ export async function handler() {
     logger.log('Merge Request Description:\n\n', mrDescription)
 
     if (await hasUnchecked(mrDescription)) {
-      logger.log('There are unticked checkboxes')
+      logger.error('There are unticked checkboxes')
       process.exit(1)
     }
 
