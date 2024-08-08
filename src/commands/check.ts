@@ -1,5 +1,6 @@
 import { Argv } from 'yargs'
 import { logger } from '../logger'
+import { hasUnchecked } from '../utils/hasUnchecked'
 
 interface GreetingArgv {}
 
@@ -41,7 +42,7 @@ export async function handler() {
     const mrDescription = data.description
     logger.log('Merge Request Description:\n\n', mrDescription)
 
-    if (mrDescription.includes('[ ]')) {
+    if (await hasUnchecked(mrDescription)) {
       logger.log('There are unticked checkboxes')
       process.exit(1)
     }
