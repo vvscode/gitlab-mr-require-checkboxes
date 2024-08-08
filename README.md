@@ -42,6 +42,7 @@ You can mark part of checkboxes as required (by default it's applicable to the w
 
 ```md
 <!-- required-checkboxes-start -->
+
 - [x] required 1
 - [ ] required 2
 <!-- required-checkboxes-end -->
@@ -50,3 +51,7 @@ You can mark part of checkboxes as required (by default it's applicable to the w
 ```
 
 Wrapper can be used multiple times.
+
+### Note
+
+It will add MR note with a fail message as well. If you want to customize message - set `NOTE_ERROR_MESSAGE` environment variable. It you don't need it - put it to `""` (empty string)

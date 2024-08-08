@@ -1,6 +1,7 @@
 import { Argv } from 'yargs'
 import { logger } from '../logger'
 import { hasUnchecked } from '../utils/hasUnchecked'
+import { addMrNote } from 'src/utils/addMrNote'
 
 interface GreetingArgv {}
 
@@ -21,6 +22,10 @@ export async function handler() {
     logger.prompt('I do not see CI_MERGE_REQUEST_IID environment variable. Please enter it:', { type: 'text' }))
   const gitlabHost = await (process.env.CI_SERVER_URL ||
     logger.prompt('I do not see CI_SERVER_URL environment variable. Please enter it:', { type: 'text' }))
+  const failedNoteText =
+    'NOTE_ERROR_MESSAGE' in process.env
+      ? process.env.NOTE_ERROR_MESSAGE
+      : 'It is necessary to mark all mandatory checkboxes in the description.'
 
   const gitlabApiUrl = `${gitlabHost}/api/v4/projects/${projectId}/merge_requests/${mrId}`
 
@@ -44,6 +49,17 @@ export async function handler() {
 
     if (await hasUnchecked(mrDescription)) {
       logger.error('There are unticked checkboxes')
+
+      if (failedNoteText) {
+        await addMrNote({
+          note: failedNoteText,
+          gitlabHost,
+          gitlabToken,
+          mrId,
+          projectId,
+        })
+      }
+
       process.exit(1)
     }
 
