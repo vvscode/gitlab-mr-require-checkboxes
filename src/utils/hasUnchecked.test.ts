@@ -29,4 +29,6 @@ describe('hasUnchecked', () => {
     <!-- required-checkboxes-end -->
     - [ ] some unticked  
   `)
+  shouldPass(`
+  `)
 })
