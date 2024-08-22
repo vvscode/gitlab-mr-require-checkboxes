@@ -1,7 +1,7 @@
 import { Argv } from 'yargs'
 import { logger } from '../logger'
 import { hasUnchecked } from '../utils/hasUnchecked'
-import { addMrNote } from 'src/utils/addMrNote'
+import { addMrNote } from '../utils/addMrNote'
 
 interface GreetingArgv {}
 
