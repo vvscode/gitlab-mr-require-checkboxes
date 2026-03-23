@@ -21,6 +21,7 @@ The cli uses environment variables to pass settings:
 
 - `GITLAB_API_TOKEN` - this one you need to create, it's used to access gitlab API
 - `CI_PROJECT_ID`, `CI_MERGE_REQUEST_IID`, `CI_SERVER_URL` are passed to pipeline by Gitlab
+- `REQUIRE_ALL` - to implement logic from v1 to require all checkboxes to be checked when no marked checkboxes (with opening/closing tags)
 
 ## How to use in ci config:
 

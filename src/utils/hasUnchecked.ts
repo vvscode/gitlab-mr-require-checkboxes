@@ -1,7 +1,7 @@
 const OPENING_TAG = '<!-- required-checkboxes-start -->'
 const CLOSING_TAG = '<!-- required-checkboxes-end -->'
 
-export async function hasUnchecked(description: string): Promise<boolean> {
+export async function hasUnchecked(description: string, requireAll = false): Promise<boolean> {
   const regex = new RegExp(`${OPENING_TAG}((\\s|\\S)*?)${CLOSING_TAG}`, 'gs')
 
   const matches: string[] = []
@@ -15,5 +15,5 @@ export async function hasUnchecked(description: string): Promise<boolean> {
     return (await Promise.all(matches.map((el) => hasUnchecked(el)))).some((result) => result)
   }
 
-  return description.includes('[ ]')
+  return requireAll && description.includes('[ ]')
 }

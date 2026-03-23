@@ -26,6 +26,7 @@ export async function handler() {
     'NOTE_ERROR_MESSAGE' in process.env
       ? process.env.NOTE_ERROR_MESSAGE
       : 'It is necessary to mark all mandatory checkboxes in the description.'
+  const requireAll = Boolean(process.env.REQUIRE_ALL)
 
   const gitlabApiUrl = `${gitlabHost}/api/v4/projects/${projectId}/merge_requests/${mrId}`
 
@@ -47,7 +48,7 @@ export async function handler() {
     const mrDescription = data.description
     logger.log('Merge Request Description:\n\n', mrDescription)
 
-    if (await hasUnchecked(mrDescription)) {
+    if (await hasUnchecked(mrDescription, requireAll)) {
       logger.error('There are unticked checkboxes')
 
       if (failedNoteText) {
